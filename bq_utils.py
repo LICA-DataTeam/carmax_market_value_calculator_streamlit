@@ -10,7 +10,7 @@ from google.oauth2 import service_account
 from google.cloud.exceptions import NotFound
 import json, os
 
-def get_acct(filename = 'absolute-gantry-363408-1f5b5b4dc774.json'):
+def get_acct(filename):
     try:
         acct = json.loads(os.environ.get('BQ_SERVICE_ACCOUNT_KEY'))
         if acct is None:
@@ -245,7 +245,7 @@ def load_save_data(bq_dict : dict,
     else:
         return None
 
-def sql_query_bq(query, acct=get_acct()):
+def sql_query_bq(query, acct):
     client, credentials = authenticate_bq(acct)
 
     query_job = client.query(query)
