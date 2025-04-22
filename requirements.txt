@@ -1,0 +1,12 @@
+google-auth
+google-cloud-storage
+google-cloud-bigquery
+db-dtypes
+chromedriver-binary==133.0.6848.0.0
+streamlit
+selenium
+bs4
+numpy
+matplotlib
+pandas
+scipy
