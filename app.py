@@ -48,21 +48,31 @@ def initialize_data_cache(bq_acct):
 st.title("Carmax Market Value Calculator")
 brands, df_model, years, df_bq = initialize_data_cache(st.secrets["bq_acct"].to_dict())
 
+
+col1, col2, col3 = st.columns(3)
 # User input for car details
-year = st.selectbox("Car year", np.append(["Select car year"], years))
-brand = st.selectbox("Car brand", np.append(["Select car brand"], brands))
+with col1:
+    year = st.selectbox("Car year", np.append(["Select car year"], years))
 
-if brand != "Select car brand":
-    df_brand_model = df_model[df_model["BRANDS"] == brand]["MODEL"]
-    model = st.selectbox("Car model", np.append(["Select car model"], df_brand_model.values))
-else:
-    model = st.selectbox("Car model", [])
+with col2:
+    brand = st.selectbox("Car brand", np.append(["Select car brand"], brands))
 
-# Placeholder for car variant
-variant_price = st.selectbox("Car variant", [])
-st.warning("Car variant is currently under development.")
-variant_price = st.number_input("Car variant price", value=None, step=1)
-st.info("For the meantime, search the brand new price of the variant and put it above.")
+with col3:
+    if brand != "Select car brand":
+        df_brand_model = df_model[df_model["BRANDS"] == brand]["MODEL"]
+        model = st.selectbox("Car model", np.append(["Select car model"], df_brand_model.values))
+    else:
+        model = st.selectbox("Car model", [])
+
+col1, col2 = st.columns(2)
+    # Placeholder for car variant
+with col1:
+    variant_price = st.selectbox("Car variant", [])
+    st.warning("Car variant is currently under development.")
+with col2:
+    variant_price = st.number_input("Car variant price", value=None, step=1)
+    st.info("For the meantime, search the brand new price of the variant and put it above.")
+
 
 # Calculate market value if all inputs are provided
 if year != "Select car year" and brand != "Select car brand" and model != "Select car model":

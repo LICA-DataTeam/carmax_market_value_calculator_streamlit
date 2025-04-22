@@ -33,7 +33,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 @st.cache_resource
-def initialize_data_cache():
+def initialize_data_cache(bq_acct):
     """
     Cache data from BigQuery and Google Sheets for faster access.
 
@@ -43,10 +43,10 @@ def initialize_data_cache():
     - years (list): List of car manufacturing years.
     - df_bq (pd.DataFrame): DataFrame containing car listings data from BigQuery.
     """
-    return app_utils.initialize_data()
+    return app_utils.initialize_data(bq_acct)
 
 st.title("Carmax Market Value Calculator")
-brands, df_model, years, df_bq = initialize_data_cache()
+brands, df_model, years, df_bq = initialize_data_cache(st.secrets["bq_acct"].to_dict())
 col1, col2, col3, col4 = st.columns(4)
 
 for brand in brands:

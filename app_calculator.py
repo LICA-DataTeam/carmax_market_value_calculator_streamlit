@@ -202,9 +202,6 @@ class MarketValueCalculator:
         df["price_filter"] = df["price"]*np.exp(df["car_years_old"]*0.075)
         cond4 = df["price_filter"] <= df["price_filter"].quantile(self.truncate_upper)
         cond5 = df["price_filter"] >= df["price_filter"].quantile(self.truncate_lower)
-        # price_filter[cond4 & cond5]
-        # cond4 = df["price"] <= df["price"].quantile(self.truncate_upper)
-        # cond5 = df["price"] >= df["price"].quantile(self.truncate_lower)
         df = df[cond4 & cond5]
 
         scaling = df["price"].max()
